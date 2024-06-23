@@ -1,15 +1,23 @@
-const productsModal = require('./products.modal')
+const productsModel = require('./products.model')
 
 module.exports = {
     Query: {
         products: () => {
-            return productsModal.getAllProducts;
+            return productsModel.getAllProducts();
         },
         productsByPrice: (_, args) => {
-            return productsModal.getProductsByPrice(args.min, args.max);
+            return productsModel.getProductsByPrice(args.min, args.max);
         },
         product: (_, args) => {
-            return productsModal.getAllProductById(args.id)
+            return productsModel.getProductById(args.id)
+        }
+    },
+    Mutation: {
+        addNewProduct: (_, args) => {
+            return productsModel.addNewProduct(args.id, args.description, args.price);
+        },
+        addNewProductReview: (_, args) => {
+            return productsModel.addNewProductReview(args.id, args.rating, args.comment);
         }
     }
 }
